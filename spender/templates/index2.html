@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Monthly Totals</title>
+    <link rel="stylesheet" href="{% static 'spender/styles.css' %}">
+</head>
+<body>
+
+    {% block content %}
+    {% endblock %}
+
+    <h1>Monthly and Shop Totals</h1>
+
+    <h2>Monthly Totals: {{ fullstring }}</h2>
+
+  
+
+    <table>
+        <thead>
+            <tr>
+                <th>Year-Month</th>
+                <th>Total Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for year_month, total_amount in monthly_totals.items %}
+                <tr>
+                    <td>{{ year_month }}</td>
+                    <td>{{ total_amount }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h2>Shop Totals</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Year-Month</th>
+                <th>Total Amount</th>
+                {% for item in filters %}
+                    <th>{{ item }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for year_month, shop_totals in shop_totals.items %}
+                <tr>
+                    <td>{{ year_month }}</td>
+
+                    {% for store, total_amount in shop_totals.items %}
+                        <td>{{ total_amount }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
